@@ -15,7 +15,7 @@ function getTimings(city){
     axios.get(`http://api.aladhan.com/v1/timingsByCity?city=${city}&country=Saudi Arabia&method=4`)
     .then((response)=>{
         let timing = response.data.data.timings
-        console.log(timing)
+        
 
         let esha = document.getElementById("esha")
         let magrib = document.getElementById("magrib")
@@ -70,7 +70,14 @@ function getTimings(city){
         } else{
             fager.innerHTML = `${timing.Fajr} ص`
         }
-
+        let showTime = document.getElementById("show-time")
+        showTime.innerHTML = `
+        <h3>التاريخ الميلادي: ${response.data.data.date.gregorian.date}</h3>
+        
+        <h3>التاريخ الهجري:${response.data.data.date.hijri.date}
+        
+        <h3>اليوم: ${response.data.data.date.hijri.weekday.ar}</h3>
+        `
 
         
     })
