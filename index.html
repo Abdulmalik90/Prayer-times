@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="./node_modules/axios/dist/axios.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <div id="logo">
+            <h1>مواقيت الصلاة</h3>
+        </div>
+
+        <div id="arias">
+            <div class="arias-div"><h2 class="airas-class">المنطقة الشرقية</h2></div>
+            <div class="arias-div"><h2 class="airas-class">الرياض</h2></div>
+            <div class="arias-div"><h2 class="airas-class">مكة المكرمة</h2></div>
+        </div>
+
+        <div></div>
+    </header>
+    <div id="contain-div-city">
+        <div></div>
+        <div id="chose-city-div">
+            <label for="select-city">اختر المدينة:</label>
+            <div id="select-btn">
+                <select name="city" id="select-city">
+                    <option value="Dammam">الدمام</option>
+                    <option value="Alhasa">الأحساء</option>
+                    <option value="Aljubail">الجبيل</option>
+                </select>
+                <button id="shose-button">اختر</button>
+        </div>
+        </div>
+        <div></div>
+    </div>
+    <div id="prayTime-div">
+        <div id="show-time">
+            
+        </div>
+        <div id="container-timeBox">
+            <div class="pray-time-box" id="esha"></div>
+            <div class="pray-time-box" id="magrib"></div>
+            <div class="pray-time-box" id="aser"></div>
+            <div class="pray-time-box" id="duhur"></div>
+            <div class="pray-time-box" id="shrok"></div>
+            <div class="pray-time-box" id="fager"></div>
+        </div>
+    </div>
+    
+</body>
+<script src="main.js"></script>
+
+</html>
