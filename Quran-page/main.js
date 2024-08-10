@@ -2,7 +2,7 @@
 
 
 function getSouras(){
-    axios.get("http://api.alquran.cloud/v1/quran/quran-uthmani")
+    axios.get("https://api.alquran.cloud/v1/quran/quran-uthmani")
     .then((response) =>{
         let souras = document.getElementById("souras")
         let souraNames = response.data.data.surahs
@@ -16,7 +16,7 @@ function getSouras(){
 }
 
 function getAyat(ayas){
-    axios.get(`http://api.alquran.cloud/v1/surah/${ayas}/quran-uthmani`)
+    axios.get(`https://api.alquran.cloud/v1/surah/${ayas}/quran-uthmani`)
     .then((response)=>{
 
         let ayat = document.getElementById("ayat-p")

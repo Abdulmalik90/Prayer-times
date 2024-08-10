@@ -12,7 +12,7 @@ choseBtn.addEventListener("click", ()=>{
 
 
 function getTimings(city){
-    axios.get(`http://api.aladhan.com/v1/timingsByCity?city=${city}&country=Saudi Arabia&method=4`)
+    axios.get(`https://api.aladhan.com/v1/timingsByCity?city=${city}&country=Saudi Arabia&method=4`)
     .then((response)=>{
         let timing = response.data.data.timings
         
