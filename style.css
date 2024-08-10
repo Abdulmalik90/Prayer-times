@@ -1,6 +1,7 @@
 body {
     margin: 0;
     padding: 0;
+    background-color: rgb(33, 42, 70);
 }
 
 header {
@@ -14,6 +15,7 @@ header {
 
 #logo {
     margin-left: 10px;
+    color: azure;
 }
 
 
@@ -28,13 +30,13 @@ header {
 
 .arias-div{
     height: 100%;
-    border-bottom: 2px rgb(185, 185, 185) solid;
-    color: rgb(185, 185, 185);
+    border-bottom: 2px blanchedalmond solid;
+    color: blanchedalmond;
 }
 
 .arias-div:hover{
-    border-bottom: 2px white solid;
-    color: white;
+    border-bottom: 2px rgb(143, 143, 143) solid;
+    color: rgb(143, 143, 143);
     cursor: pointer;
 }
 
@@ -45,7 +47,7 @@ header {
 /* content 1 chose the city */
 #contain-div-city{
     height: 40%;
-    background-color: aqua;
+    background-color: rgb(33, 42, 70);
     display: flex;
     justify-content: space-evenly;
 }
@@ -62,15 +64,26 @@ header {
     font-size: 30px;
     margin-bottom: 10px;
     width: 240px;
+    background-color: blanchedalmond;
+    border-radius: 20px;
+    padding: 10px;
 }
 
 #chose-city-div label{
     font-size: 22px;
     margin-bottom: 10px;
+    color: white;
 }
 
 #shose-button {
     font-size: 30px;
+    background-color: rgb(254, 91, 91);
+    color: white;
+    margin-left: 30px;
+    border: none;
+    padding: 10px;
+    border-radius: 20px;
+    
 }
 
 /* Time box */
@@ -78,7 +91,7 @@ header {
 #prayTime-div {
     width: 100%;
     height: 100vh;
-    background-color: green;
+    background-color: rgb(33, 42, 70);
 }
 
 #show-time{
@@ -86,7 +99,8 @@ header {
     border-top: 2px black solid;
     display: flex;
     padding: 10px;
-    background-color: blue;
+    background-color: rgb(254, 91, 91);
+    color: white;
     height: 50px;
     width: max-content;
     border-bottom-right-radius: 30px;
@@ -105,11 +119,12 @@ header {
     text-align: center;
     padding: 8px;
     border-top-left-radius: 20px;
+    border: 2px rgb(254, 91, 91) solid;
 
 }
 
 .pray-time-box h3 {
-    background-color: blueviolet;
+    background-color: rgb(33, 42, 70);
     color: white;
-    border-radius: 20px;
+    border-radius: 20px ;
 }
