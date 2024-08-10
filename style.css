@@ -74,3 +74,42 @@ header {
 }
 
 /* Time box */
+
+#prayTime-div {
+    width: 100%;
+    height: 100vh;
+    background-color: green;
+}
+
+#show-time{
+    margin: 0;
+    border-top: 2px black solid;
+    display: flex;
+    padding: 10px;
+    background-color: blue;
+    height: 50px;
+    width: max-content;
+    border-bottom-right-radius: 30px;
+}
+
+#container-timeBox{
+    width: 90%;
+    margin: 70px auto;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.pray-time-box {
+    background-color: blanchedalmond;
+    width: 110px;
+    text-align: center;
+    padding: 8px;
+    border-top-left-radius: 20px;
+
+}
+
+.pray-time-box h3 {
+    background-color: blueviolet;
+    color: white;
+    border-radius: 20px;
+}
