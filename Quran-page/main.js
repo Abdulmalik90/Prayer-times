@@ -23,11 +23,23 @@ function getAyat(ayas){
         let souraNameH1 = document.getElementById("soura-name-h1")
         let soura = response.data.data
         let souras = response.data.data.ayahs
-        console.log(souras)
+        console.log(soura)
         ayat.innerHTML = ""
         souraNameH1.innerHTML = `<h1>${soura.name}</h1>`
+        x = ""
         for (aya of souras){
-            ayat.innerHTML += `${aya.text}<span id="aya-number">{${aya.numberInSurah}}</span>`
+            if (ayas == 1 || ayas == 9){
+                ayat.innerHTML += `${aya.text}<span id="aya-number">{${aya.numberInSurah}}</span>`
+            }else{
+                x += `${aya.text}<span id="aya-number">{${aya.numberInSurah}}</span>`
+                console.log(x.substring(0, 39))
+            }
+            
+        if (ayas == 1 || ayas == 9){
+            console.log("")
+        }else{
+            ayat.innerHTML = `${x.substring(0, 39)}<br> ${x.substring(39)}`
+        }
 
         }
         ayat.innerHTML += "."
