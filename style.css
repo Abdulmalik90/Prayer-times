@@ -16,12 +16,13 @@ header {
     background-color: rgb(255, 63, 63);
     border-bottom: 2px rgb(255, 63, 63) solid;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 #logo {
     margin-left: 10px;
     color: azure;
+    margin-right: 10px;
 }
 
 
@@ -73,6 +74,8 @@ header {
 #chose-city-div #select-btn #select-city {
     font-size: 30px;
     margin-bottom: 10px;
+    margin-right: auto;
+    margin-left: auto;
     width: 240px;
     background-color: blanchedalmond;
     border-radius: 20px;
@@ -83,17 +86,19 @@ header {
     font-size: 22px;
     margin-bottom: 10px;
     color: white;
+    text-align: center;
 }
 
 #shose-button {
     font-size: 30px;
+    width: 60px;
     background-color: rgb(254, 91, 91);
     color: white;
     margin-left: 30px;
     border: none;
     padding: 10px;
     border-radius: 20px;
-    
+    margin: 5px auto;
 }
 
 /* Time box */
@@ -142,4 +147,54 @@ header {
     background-color: rgb(33, 42, 70);
     color: white;
     border-radius: 20px ;
+}
+
+@media (max-width: 930px) {
+    #container-timeBox {
+        width: 510px;
+
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .pray-time-box {
+        margin: 15px;
+    }
+
+    #show-time{
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 510px) {
+    .pray-time-box {
+        font-size: 10px;
+        padding: 4px;
+    }
+
+    .pray-time-box h2 {
+        width: max-content;
+        text-align: center;
+        margin: auto;
+    }
+
+    #container-timeBox {
+        width: 90%;
+        margin: 40px auto;
+    }
+}
+
+@media (max-width: 360px) {
+    #show-time {
+        font-size: 5px;
+        width: max-content;
+        height: max-content;
+    }
+}
+
+@media (max-width: 337px) {
+    #container-timeBox {
+
+        justify-content: center;
+    }
 }

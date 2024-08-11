@@ -21,9 +21,9 @@ function getAyat(ayas){
 
         let ayat = document.getElementById("ayat-p")
         let souraNameH1 = document.getElementById("soura-name-h1")
-
         let soura = response.data.data
         let souras = response.data.data.ayahs
+        console.log(souras)
         ayat.innerHTML = ""
         souraNameH1.innerHTML = `<h1>${soura.name}</h1>`
         for (aya of souras){
