@@ -38,7 +38,7 @@ function getAyat(ayas){
         if (ayas == 1 || ayas == 9){
             console.log("")
         }else{
-            ayat.innerHTML = `${x.substring(0, 39)}<br> ${x.substring(39)}`
+            ayat.innerHTML = `<span id="aya-number">${x.substring(0, 39)}</span><br> ${x.substring(39)}`
         }
 
         }
