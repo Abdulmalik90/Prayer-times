@@ -82,6 +82,14 @@ header {
     padding: 10px;
 }
 
+optgroup {
+    background-color: azure;
+}
+
+optgroup option {
+    background-color: blanchedalmond;
+}
+
 #chose-city-div label{
     font-size: 22px;
     margin-bottom: 10px;
@@ -147,6 +155,26 @@ header {
     background-color: rgb(33, 42, 70);
     color: white;
     border-radius: 20px ;
+}
+
+#athan-time-cont {
+    margin: 30px auto;
+    padding: 15px;
+    text-align: center;
+    width: max-content;
+    height: max-content;
+    background-color: rgb(254, 91, 91);
+    border-radius: 20px;
+}
+
+#athan-time-cont h1 {
+    color: white;
+}
+
+#time-h1{
+
+    background-color: rgb(33, 42, 70);
+    border-radius: 20px;
 }
 
 @media (max-width: 930px) {

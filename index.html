@@ -13,13 +13,14 @@
         <div id="logo">
             <a href="/index.html"><h1>آيات</h3></a>
         </div>
+        <div style="width: 20%;"></div>
 
         <div id="arias">
             <a href="/index.html"><div class="arias-div"><h2 class="airas-class">مواقيت الصلاة</h2></div></a>
             <a href="/Quran-page/index.html"><div class="arias-div"><h2 class="airas-class">القرآن الكريم</h2></div></a>
         </div>
 
-        <div></div>
+        <div style="width: 20%;"></div>
     </header>
     <div id="contain-div-city">
         <div></div>
@@ -27,10 +28,67 @@
             <label for="select-city">اختر المدينة:</label>
             <div id="select-btn">
                 <select name="city" id="select-city">
-                    <option value="Dammam">الدمام</option>
-                    <option value="Hofuf">الهفوف</option>
-                    <option value="Jubail">الجبيل</option>
+                    <optgroup label="الرياض">
+                        <option value="Riyadh">الرياض</option>
+                        <option value="AlKharj">الخَرِج</option>
+                        <option value="Al-Muzahmiyya">المزاحمية</option>
+                        <option value="Al-Quwaiyah">القويعية</option>
+                        <option value="Al-Sulay">السلي</option>
+                    </optgroup>
+                    <optgroup label="مكة المكرمة">
+                        <option value="Mecca">مكة المكرمة</option>
+                        <option value="Jeddah">جدة</option>
+                        <option value="Taif">الطائف</option>
+                        <option value="Khamis Mushait">خميس مشيط</option>
+                        <option value="Mina">منى</option>
+                    </optgroup>
+                    <optgroup label="المدينة المنورة">
+                        <option value="Medina">المدينة المنورة</option>
+                        <option value="Yanbu">ينبع</option>
+                        <option value="Al-Ula">العلا</option>
+                    </optgroup>
+                    <optgroup label="الشرقية">
+                        <option value="Dammam">الدمام</option>
+                        <option value="Hofuf">الهفوف</option>
+                        <option value="Jubail">الجبيل</option>
+                        <option value="Khobar">الخبر</option>
+                        <option value="Qatif">القطيف</option>
+                    </optgroup>
+                    <optgroup label="عسير">
+                        <option value="Abha">أبها</option>
+                        <option value="Khamis Mushait">خميس مشيط</option>
+                        <option value="Namas">النماص</option>
+                        <option value="Bisha">بيشة</option>
+                    </optgroup>
+                    <optgroup label="تبوك">
+                        <option value="Tabuk">تبوك</option>
+                        <option value="Dhiba">ضباء</option>
+                        <option value="Umluj">أملج</option>
+                    </optgroup>
+                    <optgroup label="الحدود الشمالية">
+                        <option value="Arar">عرعر</option>
+                        <option value="Rafha">رفحاء</option>
+                        <option value="Turaif">طريف</option>
+                    </optgroup>
+                    <optgroup label="الجوف">
+                        <option value="Sakakah">سكاكا</option>
+                        <option value="Dumat Al-Jandal">دومة الجندل</option>
+                    </optgroup>
+                    <optgroup label="الباحة">
+                        <option value="Al-Baha">الباحة</option>
+                        <option value="Baljurashi">بلجرشي</option>
+                    </optgroup>
+                    <optgroup label="جازان">
+                        <option value="Jazan">جازان</option>
+                        <option value="Sabiya">صبيا</option>
+                        <option value="Abu Arish">أبو عريش</option>
+                    </optgroup>
+                    <optgroup label="نجران">
+                        <option value="Najran">نجران</option>
+                        <option value="Sharura">شرورة</option>
+                    </optgroup>
                 </select>
+                
                 <button id="shose-button">اختر</button>
         </div>
         </div>
@@ -72,7 +130,14 @@
                 <h3 id="fager">00:00</h3>
             </div>
         </div>
+
+        <div id="athan-time-cont">
+            <h1 id="time-title">:المتبقي على الأذان</h1>
+            <h1 id="time-h1">00:00:00</h1>
+        </div>
+        <audio id="athan-audio" src="https://ia800308.us.archive.org/30/items/90---azan---90---azan--many----sound----mp3---alazan_662/019--1.mp3"></audio>
     </div>
+
     
 </body>
 <script src="main.js"></script>
