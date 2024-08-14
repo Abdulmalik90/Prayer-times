@@ -6,8 +6,18 @@ function getSouras(){
     .then((response) =>{
         let souras = document.getElementById("souras")
         let souraNames = response.data.data.surahs
-        for (souraName of souraNames){
-            souras.innerHTML += `<h1 class="soura" onclick="getAyat(${souraName.number})">${souraName.name}</h1>`
+        souras.innerHTML = '';
+
+        for (let souraName of souraNames) {
+            souraName.revelationType = souraName.revelationType === "Medinan" ? "مدنية" : "مكية";
+            souras.innerHTML += `
+                <tr class="soura" onclick="getAyat(${souraName.number})">
+                    <th scope="row">${souraName.number}</th>
+                    <td>${souraName.name}</td>
+                    <td>${souraName.revelationType}</td>
+                </tr>
+            `;
+
         }
     })
     .catch((error)=>{
@@ -32,13 +42,12 @@ function getAyat(ayas){
                 ayat.innerHTML += `${aya.text}<span id="aya-number">{${aya.numberInSurah}}</span>`
             }else{
                 x += `${aya.text}<span id="aya-number">{${aya.numberInSurah}}</span>`
-                console.log(x.substring(0, 39))
             }
             
         if (ayas == 1 || ayas == 9){
-            console.log("")
+            
         }else{
-            ayat.innerHTML = `<span id="aya-number">${x.substring(0, 39)}</span><br> ${x.substring(39)}`
+            ayat.innerHTML = `<span id="bism-allah">${x.substring(0, 39)}</span><br> ${x.substring(39)}`
         }
 
         }

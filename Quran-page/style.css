@@ -7,11 +7,11 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: rgb(33, 42, 70);
+    background-color: var(--bs-secondary-color) !important;
 }
 
 a {
-    text-decoration: none;
+    text-decoration: none !important; 
     color: blanchedalmond;
 
 }
@@ -30,6 +30,10 @@ header {
     color: azure;
 }
 
+#logo a h1 {
+    color: azure;
+    margin-top: 15px;
+}
 
 #arias{
     display: flex;
@@ -53,7 +57,7 @@ header {
 .arias-div:hover{
     border-bottom: 2px rgb(143, 143, 143) solid;
     color: rgb(143, 143, 143);
-    cursor: pointer;
+    cursor: pointer; 
 }
 
 .airas-class{
@@ -61,28 +65,32 @@ header {
 }
 
 /* End Headers ---------------------------------------------- */
+.table {
+    background-color: #fff;
+    border-radius: 10px;
+}
 
+.table-hover tbody tr:hover {
+    background-color: #ffcccb !important; /* لون الخلفية عند التحويم */
+    color: #000000 !important; /* لون النص عند التحويم */
+}
+
+
+
+table tbody tr:hover {
+    background-color: red !important;
+    color: white;
+}
 #souras {
-    width: 100%;
-    height: max-content;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-evenly;
+    
 }
 
 .soura {
-    background-color: var(--light-orange);
-    color: var(--dark-blue);
-    width: max-content;
-    padding: 9px;
-    border-radius: 15px;
-    margin: 10px;
     cursor: pointer;
-    font-size: 30px;
 }
 
 .soura:hover {
-    background-color: var(--red);
+    background-color: var(--red) !important;
     color: white;
 }
 
@@ -114,4 +122,17 @@ header {
 
 #aya-number {
     color: blue;
+}
+
+#bism-allah {
+    color: blue;
+    text-align: center;
+    margin: 10px auto;
+}
+
+@media (max-width: 670px) {
+    #soura-name p {
+        font-size: 20px;
+        letter-spacing: 0.1px;
+    }
 }
