@@ -129,9 +129,11 @@ optgroup option {
     border-bottom-right-radius: 30px;
 }
 
-#show-time h3 {
+#show-time p {
     margin: 9px;
     padding-top: 7px;
+    font-weight: bold;
+    font-size: 20px;
 }
 
 #container-timeBox{
@@ -177,6 +179,8 @@ optgroup option {
     border-radius: 20px;
 }
 
+
+
 @media (max-width: 930px) {
     #container-timeBox {
         width: 510px;
@@ -189,8 +193,9 @@ optgroup option {
         margin: 15px;
     }
 
-    #show-time{
+    #show-time p{
         font-size: 10px;
+        
     }
 }
 
@@ -212,12 +217,29 @@ optgroup option {
     }
 }
 
+@media (max-width: 370px) {
+    #athan-time-cont {
+        font-size: 10px;
+        max-width: 90%;
+    }
+    .airas-class {
+        font-size: 15px;
+    }
+
+    #shose-button{
+        margin: 10px auto;
+        margin-left: 80px;
+    }
+}
+
 @media (max-width: 360px) {
     #show-time {
         font-size: 5px;
         width: max-content;
         height: max-content;
     }
+    
+
 }
 
 @media (max-width: 337px) {

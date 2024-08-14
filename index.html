@@ -11,19 +11,16 @@
 <body>
     <header>
         <div id="logo">
-            <a href="/index.html"><h1>آيات</h3></a>
+            <a href="/index.html"><h1>آيات</h1></a>
         </div>
         <div style="width: 20%;"></div>
-
         <div id="arias">
             <a href="/index.html"><div class="arias-div"><h2 class="airas-class">مواقيت الصلاة</h2></div></a>
             <a href="/Quran-page/index.html"><div class="arias-div"><h2 class="airas-class">القرآن الكريم</h2></div></a>
         </div>
-
         <div style="width: 20%;"></div>
     </header>
     <div id="contain-div-city">
-        <div></div>
         <div id="chose-city-div">
             <label for="select-city">اختر المدينة:</label>
             <div id="select-btn">
@@ -90,13 +87,14 @@
                 </select>
                 
                 <button id="shose-button">اختر</button>
+            </div>
         </div>
-        </div>
-        <div></div>
     </div>
     <div id="prayTime-div">
         <div id="show-time">
-            
+            <p id="date-gregorian"></p>
+            <p id="date-hijri"></p>
+            <p id="weekday"></p>
         </div>
         <div id="container-timeBox">
             <div class="pray-time-box">
@@ -130,16 +128,12 @@
                 <h3 id="fager">00:00</h3>
             </div>
         </div>
-
         <div id="athan-time-cont">
             <h1 id="time-title">:المتبقي على الأذان</h1>
             <h1 id="time-h1">00:00:00</h1>
         </div>
         <audio id="athan-audio" src="https://ia800308.us.archive.org/30/items/90---azan---90---azan--many----sound----mp3---alazan_662/019--1.mp3"></audio>
     </div>
-
-    
+    <script src="main.js"></script>
 </body>
-<script src="main.js"></script>
-
 </html>
