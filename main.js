@@ -8,19 +8,20 @@ choseBtn.addEventListener("click", () => {
 function getTimings(city) {
     axios.get(`https://api.aladhan.com/v1/timingsByCity?city=${city}&country=Saudi Arabia&method=4`)
         .then((response) => {
-            console.log(response.data.data); // سجل البيانات في وحدة التحكم
             let timing = response.data.data.timings;
 
-            // تحديد أوقات الأذان
-            let esha = timing.Isha;
-            let magrib = timing.Maghrib;
-            let aser = timing.Asr;
-            let duhur = timing.Dhuhr;
-            let shrok = timing.Sunrise;
-            let fager = timing.Fajr;
+            // تحديد أوقات الأذان وتجميعها في كائن واحد
+            let prayers = {
+                fager: timing.Fajr,
+                shrok: timing.Sunrise,
+                duhur: timing.Dhuhr,
+                aser: timing.Asr,
+                magrib: timing.Maghrib,
+                esha: timing.Isha
+            };
 
             // عرض أوقات الأذان في الصفحة
-            displayPrayerTimes({ esha, magrib, aser, duhur, shrok, fager });
+            displayPrayerTimes(prayers);
 
             // تحديث التاريخ واليوم
             displayDateAndTime(response.data.data.date);
@@ -31,20 +32,18 @@ function getTimings(city) {
             }
 
             // بدء العد التنازلي
-            startCountdown({ esha, magrib, aser, duhur, shrok, fager });
-            document.getElementById("weekday").textContent = `اليوم: ${response.data.data.date.hijri.weekday.ar}`;
-            
-        });
+            startCountdown(prayers);
+        })
+        .catch((error) => console.log("حدث خطأ في جلب البيانات: ", error));
 }
 
-
 function displayPrayerTimes(times) {
-    document.getElementById("esha").textContent = formatTime(times.esha);
-    document.getElementById("magrib").textContent = formatTime(times.magrib);
-    document.getElementById("aser").textContent = formatTime(times.aser);
-    document.getElementById("duhur").textContent = formatTime(times.duhur);
-    document.getElementById("shrok").textContent = formatTime(times.shrok);
     document.getElementById("fager").textContent = formatTime(times.fager);
+    document.getElementById("shrok").textContent = formatTime(times.shrok);
+    document.getElementById("duhur").textContent = formatTime(times.duhur);
+    document.getElementById("aser").textContent = formatTime(times.aser);
+    document.getElementById("magrib").textContent = formatTime(times.magrib);
+    document.getElementById("esha").textContent = formatTime(times.esha);
 }
 
 function formatTime(time) {
@@ -52,7 +51,7 @@ function formatTime(time) {
     let period = "ص";
     if (hours >= 12) {
         period = "م";
-        hours = hours > 12 ? hours - 12 : 12;
+        if (hours > 12) hours -= 12;
     }
     if (hours === 0) {
         hours = 12;
@@ -64,12 +63,15 @@ function displayDateAndTime(date) {
     document.getElementById("date-gregorian").textContent = `التاريخ الميلادي: ${date.gregorian.date}`;
     document.getElementById("date-hijri").textContent = `التاريخ الهجري: ${date.hijri.date}`;
 
-    // تحقق من وجود اليوم في البيانات
-    let weekday = date.gregorian.weekday ? date.gregorian.weekday.ar : 'غير معروف';
+    // جلب اليوم باللغة العربية
+    let weekday = date.hijri.weekday ? date.hijri.weekday.ar : 'غير معروف';
     document.getElementById("weekday").textContent = `اليوم: ${weekday}`;
 }
 
 function startCountdown(times) {
+    // استدعاء فوري لتحديث العداد بدون الانتظار ثانية واحدة
+    calculateTimeUntilNextPrayer(times); 
+    
     intervalId = setInterval(() => {
         calculateTimeUntilNextPrayer(times);
     }, 1000);
@@ -77,91 +79,83 @@ function startCountdown(times) {
 
 function calculateTimeUntilNextPrayer(times) {
     let now = new Date();
-    let currentHours = now.getHours();
-    let currentMinutes = now.getMinutes();
-    let currentSeconds = now.getSeconds();
+    // تحويل الوقت الحالي إلى ثواني منذ بداية اليوم
+    let currentSeconds = (now.getHours() * 3600) + (now.getMinutes() * 60) + now.getSeconds();
 
+    // ترتيب الصلوات منطقياً من الفجر إلى العشاء
     let prayerTimes = [
-        { name: "العشاء", time: times.esha },
-        { name: "المغرب", time: times.magrib },
-        { name: "العصر", time: times.aser },
-        { name: "الظهر", time: times.duhur },
+        { name: "الفجر", time: times.fager },
         { name: "الشروق", time: times.shrok },
-        { name: "الفجر", time: times.fager }
+        { name: "الظهر", time: times.duhur },
+        { name: "العصر", time: times.aser },
+        { name: "المغرب", time: times.magrib },
+        { name: "العشاء", time: times.esha }
     ];
 
-    // تحويل الوقت الحالي إلى ثواني منذ بداية اليوم
-    let currentTimeInSeconds = (currentHours * 3600) + (currentMinutes * 60) + currentSeconds;
-
-    let nextPrayer = null;
-    let minTimeDiff = 24 * 3600; // أقصى فرق ممكن (24 ساعة)
-
-    // العثور على أقرب وقت صلاة لاحق
-    for (let i = 0; i < prayerTimes.length; i++) {
-        let [prayerHours, prayerMinutes] = prayerTimes[i].time.split(":").map(Number);
-        let prayerTimeInSeconds = (prayerHours * 3600) + (prayerMinutes * 60);
-
-        // إذا كان وقت الصلاة بعد الوقت الحالي
-        if (prayerTimeInSeconds > currentTimeInSeconds) {
-            let timeDiff = prayerTimeInSeconds - currentTimeInSeconds;
-
-            if (timeDiff < minTimeDiff) {
-                minTimeDiff = timeDiff;
-                nextPrayer = prayerTimes[i];
-            }
-        }
-    }
-
-    // إذا لم يتم العثور على وقت أذان لاحق في نفس اليوم، نعتبر الأذان الأول في اليوم التالي
-    if (!nextPrayer) {
-        let [prayerHours, prayerMinutes] = prayerTimes[0].time.split(":").map(Number);
-        let prayerTimeInSeconds = (prayerHours * 3600) + (prayerMinutes * 60) + (24 * 3600);
-        minTimeDiff = prayerTimeInSeconds - currentTimeInSeconds;
-        nextPrayer = prayerTimes[0];
-    }
-
-    // حساب الوقت المنقضي من آخر وقت صلاة
-    let lastPrayer = prayerTimes.find(p => {
-        let [prayerHours, prayerMinutes] = p.time.split(":").map(Number);
-        return (prayerHours * 3600) + (prayerMinutes * 60) <= currentTimeInSeconds;
+    // تحويل جميع أوقات الصلوات إلى ثواني
+    let parsedPrayers = prayerTimes.map(p => {
+        let [hours, minutes] = p.time.split(":").map(Number);
+        return { name: p.name, timeInSeconds: (hours * 3600) + (minutes * 60) };
     });
 
-    let elapsedTimeInSeconds = lastPrayer ? Math.max(0, currentTimeInSeconds - ((lastPrayer.time.split(':').map(Number)[0] * 3600) + (lastPrayer.time.split(':').map(Number)[1] * 60))) : 0;
-    let elapsedHours = Math.floor(elapsedTimeInSeconds / 3600);
-    let elapsedMinutes = Math.floor((elapsedTimeInSeconds % 3600) / 60);
-    let elapsedSeconds = elapsedTimeInSeconds % 60;
+    let nextPrayer = null;
+    let lastPrayer = null;
 
-    let remainingHours = Math.floor(minTimeDiff / 3600);
-    let remainingMinutes = Math.floor((minTimeDiff % 3600) / 60);
-    let remainingSeconds = minTimeDiff % 60;
-
-    
-
-    // تحديث الصفحة بالوقت المتبقي أو المنقضي
-    if (lastPrayer) {
-        if (currentTimeInSeconds >= ((lastPrayer.time.split(':').map(Number)[0] * 3600) + (lastPrayer.time.split(':').map(Number)[1] * 60))) {
-            document.getElementById("time-title").textContent = `الوقت المنقضي على أذان ${nextPrayer.name}:`;
-            document.getElementById("time-h1").textContent = `${elapsedHours}:${elapsedMinutes < 10 ? '0' + elapsedMinutes : elapsedMinutes}:${elapsedSeconds < 10 ? '0' + elapsedSeconds : elapsedSeconds}`;
-        } else {
-            document.getElementById("time-title").textContent = `المتبقي على أذان ${nextPrayer.name}:`;
-            document.getElementById("time-h1").textContent = `${remainingHours}:${remainingMinutes < 10 ? '0' + remainingMinutes : remainingMinutes}:${remainingSeconds < 10 ? '0' + remainingSeconds : remainingSeconds}`;
+    // العثور على الصلاة القادمة والسابقة
+    for (let i = 0; i < parsedPrayers.length; i++) {
+        if (parsedPrayers[i].timeInSeconds > currentSeconds) {
+            nextPrayer = parsedPrayers[i];
+            
+            // تحديد الصلاة السابقة
+            if (i > 0) {
+                lastPrayer = parsedPrayers[i - 1];
+            } else {
+                // إذا كانت الصلاة القادمة هي الفجر، فالصلاة السابقة هي عشاء الأمس
+                lastPrayer = { name: "العشاء", timeInSeconds: parsedPrayers[5].timeInSeconds - (24 * 3600) };
+            }
+            break;
         }
-    } else {
-        // في حالة عدم وجود آخر وقت صلاة
-        document.getElementById("time-title").textContent = 'لم يتم العثور على وقت صلاة';
-        document.getElementById("time-h1").textContent = '00:00:00';
     }
 
-    // تشغيل صوت الأذان عند الوصول إلى وقت الأذان
-    if (minTimeDiff <= 0) {
+    // إذا انقضت كل صلوات اليوم (الوقت الحالي بعد صلاة العشاء)
+    if (!nextPrayer) {
+        // الصلاة القادمة هي فجر اليوم التالي
+        nextPrayer = { name: "الفجر", timeInSeconds: parsedPrayers[0].timeInSeconds + (24 * 3600) }; 
+        // الصلاة السابقة هي عشاء اليوم
+        lastPrayer = parsedPrayers[5]; 
+    }
+
+    // حساب الوقت المتبقي والمنقضي بالثواني
+    let timeRemaining = nextPrayer.timeInSeconds - currentSeconds;
+    let timeElapsed = currentSeconds - lastPrayer.timeInSeconds;
+
+    let targetTitle = "";
+    let targetTime = 0;
+
+    // تحديد أيهما أقرب: الوقت المنقضي أم المتبقي
+    if (timeRemaining <= timeElapsed) {
+        targetTitle = `المتبقي على ${nextPrayer.name === "الشروق" ? "وقت" : "أذان"} ${nextPrayer.name}:`;
+        targetTime = timeRemaining;
+    } else {
+        targetTitle = `الوقت المنقضي من ${lastPrayer.name === "الشروق" ? "وقت" : "أذان"} ${lastPrayer.name}:`;
+        targetTime = timeElapsed;
+    }
+
+    // تحويل الثواني المستهدفة إلى ساعات، دقائق، وثواني
+    let h = Math.floor(targetTime / 3600);
+    let m = Math.floor((targetTime % 3600) / 60);
+    let s = targetTime % 60;
+
+    // تحديث واجهة المستخدم
+    document.getElementById("time-title").textContent = targetTitle;
+    document.getElementById("time-h1").textContent = `${h < 10 ? '0' + h : h}:${m < 10 ? '0' + m : m}:${s < 10 ? '0' + s : s}`;
+
+    // تشغيل صوت الأذان عندما يصل الوقت المتبقي للصفر (تجنب تشغيله في وقت الشروق)
+    if (timeRemaining === 0 && nextPrayer.name !== "الشروق") {
         let athanAudio = document.getElementById("athan-audio");
         athanAudio.play();
-        clearInterval(intervalId); // إيقاف التحديث
     }
 }
-
-
-
 
 function getCity() {
     let city = document.getElementById("select-city").value;

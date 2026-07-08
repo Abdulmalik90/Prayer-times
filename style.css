@@ -126,6 +126,7 @@ optgroup option {
     color: white;
     height: 50px;
     width: max-content;
+    border: solid black 1px;
     border-bottom-right-radius: 30px;
 }
 
